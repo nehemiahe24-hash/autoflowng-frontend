@@ -1221,15 +1221,39 @@ function AppDashboard({ onBack }) {
   }
 
   function connectPlatform(id) {
-    setConnecting(id);
-    setTimeout(()=>{
-      setPlatforms(p=>p.map(x=>x.id===id?{...x,connected:!x.connected}:x));
-      const pl=platforms.find(p=>p.id===id);
-      toast(pl.connected?`${pl.name} disconnected`:`${pl.name} connected! ✓`);
-      setConnecting(null);
-    },1400);
+  const pl = platforms.find(p => p.id === id);
+  if (pl?.connected) {
+    fetch(`/api/connections/${id}`, { method: 'DELETE', credentials: 'include' })
+      .then(() => {
+        setPlatforms(p => p.map(x => x.id === id ? {...x, connected: false} : x));
+        toast(`${pl.name} disconnected`);
+      });
+    return;
   }
-
+  if (id === 'gmail') { window.location.href = '/api/connect/gmail'; return; }
+  if (id === 'slack') { window.location.href = '/api/connect/slack'; return; }
+  toast(`${pl?.name} integration coming soon!`);
+  }
+useEffect(() => {
+  fetch('/api/connections', { credentials: 'include' })
+    .then(r => r.ok ? r.json() : { connections: [] })
+    .then(d => {
+      setPlatforms(prev => prev.map(p => ({
+        ...p, connected: d.connections.includes(p.id)
+      })));
+    })
+    .catch(() => {});
+  const params = new URLSearchParams(window.location.search);
+  const done = params.get('connected');
+  if (done && done !== 'error') {
+    toast(`${done.charAt(0).toUpperCase()+done.slice(1)} connected! ✓`);
+    window.history.replaceState({}, '', '/');
+  }
+  if (done === 'error') {
+    toast('Connection failed, please try again.');
+    window.history.replaceState({}, '', '/');
+  }
+}, []);
   const connected = platforms.filter(p=>p.connected);
 
   const NAV = [
