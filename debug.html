@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoFlowNG Debug</title>
+  <style>
+    body { background: #04060F; color: #E8EEFF; font-family: monospace; padding: 24px; }
+    .box { background: #0C1120; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+    .ok { color: #00C896; } .err { color: #FB7185; } .warn { color: #FBBF24; }
+    h2 { font-size: 14px; color: rgba(232,238,255,0.5); margin-bottom: 12px; }
+    pre { font-size: 12px; word-break: break-all; white-space: pre-wrap; margin: 0; }
+    button { background: #00C896; color: #000; border: none; border-radius: 8px; padding: 10px 20px; font-weight: bold; cursor: pointer; margin-top: 12px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1 style="font-size:18px;margin-bottom:20px">🔍 AutoFlowNG Debug</h1>
+
+  <div class="box">
+    <h2>JWT TOKEN</h2>
+    <pre id="token"></pre>
+  </div>
+
+  <div class="box">
+    <h2>USER DATA</h2>
+    <pre id="user"></pre>
+  </div>
+
+  <div class="box">
+    <h2>TRIAL DATA</h2>
+    <pre id="trial"></pre>
+  </div>
+
+  <div class="box">
+    <h2>BACKEND TEST — /api/referrals/balance</h2>
+    <pre id="apitest">Testing...</pre>
+  </div>
+
+  <button onclick="clearAndReload()">🗑 Clear LocalStorage & Reload App</button>
+
+  <script>
+    const token = localStorage.getItem('autoflowng_token');
+    const user = localStorage.getItem('autoflowng_user');
+    const trial = localStorage.getItem('autoflowng_trial');
+
+    const tokenEl = document.getElementById('token');
+    if (token) {
+      tokenEl.className = 'ok';
+      tokenEl.textContent = '✅ Found: ' + token.substring(0, 50) + '...';
+    } else {
+      tokenEl.className = 'err';
+      tokenEl.textContent = '❌ NULL — not saved after login';
+    }
+
+    const userEl = document.getElementById('user');
+    if (user) {
+      userEl.className = 'ok';
+      userEl.textContent = '✅ ' + user;
+    } else {
+      userEl.className = 'err';
+      userEl.textContent = '❌ NULL';
+    }
+
+    const trialEl = document.getElementById('trial');
+    if (trial) {
+      trialEl.className = 'ok';
+      trialEl.textContent = '✅ ' + trial;
+    } else {
+      trialEl.className = 'warn';
+      trialEl.textContent = '⚠ NULL';
+    }
+
+    // Test API with token
+    const apiEl = document.getElementById('apitest');
+    if (token) {
+      fetch('https://autoflowng-backend.onrender.com/api/referrals/balance', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(r => r.json())
+      .then(d => {
+        apiEl.className = d.balance !== undefined ? 'ok' : 'err';
+        apiEl.textContent = JSON.stringify(d);
+      })
+      .catch(e => {
+        apiEl.className = 'err';
+        apiEl.textContent = 'ERROR: ' + e.message;
+      });
+    } else {
+      apiEl.className = 'err';
+      apiEl.textContent = '❌ No token — cannot test API';
+    }
+
+    function clearAndReload() {
+      localStorage.clear();
+      window.location.href = 'https://autoflowng-frontend.vercel.app';
+    }
+  </script>
+</body>
+</html>
