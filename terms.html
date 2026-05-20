@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms of Service — AutoFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #080c10;
+      --surface: #0e1318;
+      --border: #1a2330;
+      --accent: #00e5c0;
+      --accent2: #ff3e8a;
+      --text: #e8edf2;
+      --muted: #6b7f91;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* Background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,192,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,192,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,12,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+    .back-link {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    .page-header {
+      margin-bottom: 56px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(0,229,192,0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .meta {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    section {
+      margin-bottom: 48px;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    p { color: #a8b8c8; margin-bottom: 12px; }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 12px;
+    }
+    ul li {
+      color: #a8b8c8;
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+    ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+
+    .highlight-box {
+      background: rgba(0,229,192,0.05);
+      border: 1px solid rgba(0,229,192,0.15);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .highlight-box p { margin: 0; color: #c0d0de; }
+
+    .warning-box {
+      background: rgba(255,62,138,0.05);
+      border: 1px solid rgba(255,62,138,0.2);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .warning-box p { margin: 0; color: #c0d0de; }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 48px;
+      text-align: center;
+    }
+    .contact-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .contact-card p { margin-bottom: 16px; }
+    .contact-card a {
+      display: inline-block;
+      background: var(--accent);
+      color: #080c10;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .contact-card a:hover { opacity: 0.85; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Auto<span>Flow</span></div>
+  <a href="https://autoflowng-frontend.vercel.app" class="back-link">← Back to App</a>
+</header>
+
+<main>
+  <div class="page-header">
+    <div class="badge">Legal</div>
+    <h1>Terms of <em>Service</em></h1>
+    <p class="meta">Last updated: May 20, 2026 &nbsp;·&nbsp; Effective immediately</p>
+  </div>
+
+  <div class="highlight-box">
+    <p>By accessing or using AutoFlowNG, you agree to be bound by these Terms of Service. Please read them carefully before using our platform.</p>
+  </div>
+
+  <section>
+    <h2>1. About AutoFlow</h2>
+    <p>AutoFlow is a global business automation platform that allows businesses and individuals worldwide to connect their social media and messaging accounts — including WhatsApp, Gmail, Instagram, Facebook, TikTok, Telegram, Twitter/X, LinkedIn, and Slack — to automate messages, leads, and content management from a single dashboard.</p>
+    <p>AutoFlow is operated and owned by AutoFlow ("we", "us", or "our").</p>
+  </section>
+
+  <section>
+    <h2>2. Eligibility</h2>
+    <p>To use AutoFlowNG, you must:</p>
+    <ul>
+      <li>Be at least 18 years of age</li>
+      <li>Have a valid business or personal account on the platforms you wish to connect</li>
+      <li>Agree to comply with the terms and policies of all third-party platforms you connect</li>
+      <li>Provide accurate registration and payment information</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. Subscriptions & Payments</h2>
+    <p>AutoFlow offers the following subscription plans billed monthly. Pricing is displayed in your local currency based on your region:</p>
+    <ul>
+      <li><strong style="color:var(--text)">Starter</strong> — 3 platform connections, 5 active automations, 1,000 automated actions/mo</li>
+      <li><strong style="color:var(--text)">Business</strong> — All 10+ platforms, unlimited automations, 50,000 automated actions/mo, full AI agent access</li>
+      <li><strong style="color:var(--text)">Enterprise</strong> — Everything in Business, unlimited actions, white-label ready</li>
+    </ul>
+    <p>Payments are processed securely via Paystack (for supported regions) or Stripe (for international users). By subscribing, you authorize AutoFlow to charge your selected payment method on a recurring monthly basis until you cancel.</p>
+    <div class="warning-box">
+      <p>⚠️ Subscriptions are non-refundable once the billing period has started. You may cancel at any time, and access continues until the end of the paid period.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Free Trial</h2>
+    <p>AutoFlow offers a 3-day free trial to new users. During the trial, all features of your selected plan are available. At the end of the trial, your account will be paused unless you subscribe. No charges are made during the trial period.</p>
+  </section>
+
+  <section>
+    <h2>5. Acceptable Use</h2>
+    <p>You agree NOT to use AutoFlow to:</p>
+    <ul>
+      <li>Send spam, unsolicited messages, or bulk communications without consent</li>
+      <li>Violate the terms of service of any connected platform (WhatsApp, TikTok, Meta, Google, etc.)</li>
+      <li>Engage in fraud, phishing, or any illegal activity</li>
+      <li>Automate content that is abusive, hateful, or harmful</li>
+      <li>Resell or redistribute AutoFlow services without written permission (except on Enterprise white-label plan)</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these terms without notice or refund.</p>
+  </section>
+
+  <section>
+    <h2>6. Third-Party Platform Connections</h2>
+    <p>AutoFlowNG integrates with third-party platforms via their official APIs and OAuth protocols. By connecting your accounts, you grant AutoFlowNG permission to act on your behalf within the scope you authorize. You remain fully responsible for:</p>
+    <ul>
+      <li>Your activity on connected platforms</li>
+      <li>Compliance with each platform's own terms of service</li>
+      <li>Any violations triggered by your automations</li>
+    </ul>
+    <p>AutoFlowNG is not affiliated with, endorsed by, or officially connected to WhatsApp, Meta, Google, TikTok, Twitter/X, LinkedIn, Telegram, or Slack.</p>
+  </section>
+
+  <section>
+    <h2>7. Data & Privacy</h2>
+    <p>Your data is stored securely and will never be sold to third parties. Please review our <a href="https://autoflowng-frontend.vercel.app/privacy" style="color:var(--accent)">Privacy Policy</a> for full details on how we collect, use, and protect your information.</p>
+    <p>When you delete your account, your data is permanently removed from our systems within 30 days.</p>
+  </section>
+
+  <section>
+    <h2>8. Service Availability</h2>
+    <p>We strive for 99.9% uptime but do not guarantee uninterrupted access to the platform. Scheduled maintenance, third-party API outages, or unforeseen events may affect service availability. AutoFlow is not liable for losses resulting from downtime.</p>
+  </section>
+
+  <section>
+    <h2>9. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by applicable law, AutoFlow shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the platform, including but not limited to loss of revenue, data, or business opportunities.</p>
+  </section>
+
+  <section>
+    <h2>10. Changes to Terms</h2>
+    <p>We may update these Terms of Service from time to time. We will notify users of significant changes via email or an in-app notification at least 7 days before they take effect. Continued use of AutoFlow after changes constitutes acceptance of the new terms.</p>
+  </section>
+
+  <section>
+    <h2>11. Governing Law</h2>
+    <p>These Terms are governed by internationally recognized principles of commercial law. Users in specific jurisdictions may have additional rights under their local consumer protection laws, which these Terms do not override. Any disputes shall be resolved through good-faith negotiation or mutually agreed alternative dispute resolution.</p>
+  </section>
+
+  <div class="contact-card">
+    <h3>Questions about these terms?</h3>
+    <p>Reach out to our support team and we'll respond within 24 hours.</p>
+    <a href="mailto:support@autoflowng.com">Contact Support</a>
+  </div>
+</main>
+
+<footer>
+  © 2026 AutoFlow. All rights reserved. &nbsp;·&nbsp;
+  <a href="https://autoflowng-frontend.vercel.app/privacy">Privacy Policy</a>
+</footer>
+
+</body>
+</html>
