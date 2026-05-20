@@ -3519,6 +3519,14 @@ function KnowledgePage({ isMobile }) {
 
 // ROOT
 // ═══════════════════════════════════════════════════════════════
+// Keep backend awake
+useEffect(() => {
+  fetch("https://autoflowng-backend.onrender.com/api/health").catch(()=>{});
+  const interval = setInterval(() => {
+    fetch("https://autoflowng-backend.onrender.com/api/health").catch(()=>{});
+  }, 10 * 60 * 1000); // ping every 10 minutes
+  return () => clearInterval(interval);
+}, []);
 const APP_URL = "https://autoflowng-frontend.vercel.app";
 
 // Get JWT token from localStorage
