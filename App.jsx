@@ -3522,7 +3522,7 @@ function KnowledgePage({ isMobile }) {
 // ═══════════════════════════════════════════════════════════════
 const APP_URL = "https://autoflowng-frontend.vercel.app";
 const BACKEND_URL = "https://autoflowng-backend.onrender.com";
-public/tiktok-developers-site-verification=uo4GHR6AX75JzE1vZhBLDzi1nrcWnd5r
+
 // Get JWT token from localStorage
 function getToken() { return localStorage.getItem("autoflowng_token") || ""; }
 
